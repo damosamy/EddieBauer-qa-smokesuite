@@ -6,7 +6,7 @@ import pages.PageInitializer;
 
 public class SmokeTest01 extends PageInitializer {
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void verifyHeaderAndFooterSections() throws Exception {
 
 		landingPage().verifyHeaderMenuSection();
@@ -16,12 +16,40 @@ public class SmokeTest01 extends PageInitializer {
 //		landingPage().verifyFooter();
 	}
 
-	@Test 
+	@Test
 	public void verifyMenSubCategoryLinks() {
 		landingPage().hoverToMenMenu();
 		landingPage().verifySubCategoryForMen();
-		
-//		List<String> lists = landingPage.getSubCategoryLinks();
+	}
+
+	@Test
+	public void verifyWomenSubCategoryLinks() {
+		landingPage().hoverToWomenMenu();
+		landingPage().verifySubCategoryForWomen();
+	}
+
+	@Test
+	public void verifyOuterwearSubCategoryLinks() {
+		landingPage().hoverToOuterwearMenu();
+		landingPage().verifySubCategoryForOuterwear();
+	}
+
+	@Test
+	public void verifyGearSubCategoryLinks() {
+		landingPage().hoverToGearMenu();
+		landingPage().verifySubCategoryForGear();
+	}
+
+	@Test
+	public void verifyHomeSubCategoryLinks() {
+		landingPage().hoverToHomeMenu();
+		landingPage().verifySubCategoryForHome();
+	}
+
+	@Test
+	public void verifyGuideToEBSubCategoryLinks() {
+		landingPage().hoverToGuideToEBMenu();
+		landingPage().verifySubCategoryForGuideToEB();
 	}
 
 	@Test(enabled = false, dependsOnMethods = "verifyHeaderElements")

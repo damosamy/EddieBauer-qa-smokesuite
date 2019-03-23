@@ -355,26 +355,27 @@ public class CoreBase extends WebDriverFactory {
 		return huc;
 	}
 
-	public void checkPageContainsError(String sectionName) {
-		StringBuilder pageSrc = new StringBuilder(driver.findElement(By.tagName("body")).getText());
+	public boolean checkPageContainsError(String sectionName) {
+		StringBuilder pageSrc = new StringBuilder(
+				driver.findElement(By.tagName("body")).getText().replaceAll("[^a-zA-Z0-9]", ""));
 
 		List<String> errMsgs = new ArrayList<>();
-		errMsgs.add("no matches found for \\“global default rule\\”");
+		errMsgs.add("no matches found");
 		errMsgs.add("unknown error");
 		errMsgs.add("network error");
 
 		boolean flag = true;
- 
+
 		for (String err : errMsgs) {
-			if (!pageSrc.toString().contains(err)) {
-				System.out.println("Error Msg:<B>" + err + "<B> is present for \" + sectionName + \", URL:\"\r\n"
-						+ "						+ driver.getCurrentUrl()");
+			if (pageSrc.toString().toLowerCase().contains(err.replaceAll("[^a-zA-Z0-9]", ""))) {
+				System.out.println(
+						"Error Msg: " + err + "  is present for  " + sectionName + ", URL: " + driver.getCurrentUrl());
 				flag = false;
 			} else {
-				System.out.println("Error Msg:<B>" + err + "<B> is not present for " + sectionName + ", URL:"
+				System.out.println("Error Msg: " + err + " is not present for " + sectionName + ", URL:"
 						+ driver.getCurrentUrl() + " as expected");
 			}
 		}
-		Assert.assertTrue(flag);
+		return flag;
 	}
 }

@@ -16,8 +16,6 @@ import org.testng.Assert;
 
 public class LandingPage extends PageInitializer {
 
-	 
-
 	@FindBy(css = ".logo")
 	WebElement linkEBLogo;
 
@@ -61,15 +59,17 @@ public class LandingPage extends PageInitializer {
 	}
 
 	public void verifySubCategoryForMen() {
-		 
+		boolean vFlag = true;
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap = getSubCategoryLinks();
 		for (Map.Entry m : hMap.entrySet()) {
 			System.out.println(m.getKey() + "--" + m.getValue());
 			driver.get(m.getValue().toString());
-			checkPageContainsError(m.getKey().toString());
+			vFlag = vFlag && checkPageContainsError(m.getKey().toString());
 		}
-		System.out.println("sss");
+		System.out.println("Size of links:" + hMap.size());
+		Assert.assertEquals(42, hMap.size());
+//		Assert.assertTrue(vFlag);
 	}
 
 	private HashMap<String, String> getSubCategoryLinks() {
@@ -129,11 +129,104 @@ public class LandingPage extends PageInitializer {
 		Assert.assertTrue(linkBagIcon.isDisplayed());
 	}
 
-//	public List<String> getSubCategoryLinks() {
-//		List<String> links=null;
-//		for (WebElement e : lists) {
-////			 System.out.print(driver.get(e.getAttribute("href")));
-//		}
-//		return null;
-//	}
+	public void hoverToWomenMenu() {
+		mousehover(menuWomen);
+		explicitWaitVisibilityOfElement(focusedFlyOut, 10);
+		Assert.assertEquals(focusedFlyOut.isDisplayed(), true, "Flyout menu not displayed on hovering main Menu");
+
+	}
+
+	public void hoverToOuterwearMenu() {
+		mousehover(menuOuterwear);
+		explicitWaitVisibilityOfElement(focusedFlyOut, 10);
+		Assert.assertEquals(focusedFlyOut.isDisplayed(), true, "Flyout menu not displayed on hovering main Menu");
+	}
+
+	public void hoverToGearMenu() {
+		mousehover(menuGear);
+		explicitWaitVisibilityOfElement(focusedFlyOut, 10);
+		Assert.assertEquals(focusedFlyOut.isDisplayed(), true, "Flyout menu not displayed on hovering main Menu");
+	}
+
+	public void hoverToHomeMenu() {
+		mousehover(menuHome);
+		explicitWaitVisibilityOfElement(focusedFlyOut, 10);
+		Assert.assertEquals(focusedFlyOut.isDisplayed(), true, "Flyout menu not displayed on hovering main Menu");
+	}
+
+	public void hoverToGuideToEBMenu() {
+		mousehover(menuGuideToEB);
+		explicitWaitVisibilityOfElement(focusedFlyOut, 10);
+		Assert.assertEquals(focusedFlyOut.isDisplayed(), true, "Flyout menu not displayed on hovering main Menu");
+	}
+
+	public void verifySubCategoryForWomen() {
+		boolean vFlag = true;
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap = getSubCategoryLinks();
+		for (Map.Entry m : hMap.entrySet()) {
+			System.out.println(m.getKey() + "--" + m.getValue());
+			driver.get(m.getValue().toString());
+			vFlag = vFlag && checkPageContainsError(m.getKey().toString());
+		}
+		System.out.println("Size of links:" + hMap.size());
+		Assert.assertEquals(47, hMap.size());
+//		Assert.assertTrue(vFlag);
+	}
+
+	public void verifySubCategoryForOuterwear() {
+		boolean vFlag = true;
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap = getSubCategoryLinks();
+		for (Map.Entry m : hMap.entrySet()) {
+			System.out.println(m.getKey() + "--" + m.getValue());
+			driver.get(m.getValue().toString());
+			vFlag = vFlag && checkPageContainsError(m.getKey().toString());
+		}
+		System.out.println("Size of links:" + hMap.size());
+		Assert.assertEquals(20, hMap.size());
+//		Assert.assertTrue(vFlag);
+	}
+
+	public void verifySubCategoryForGear() {
+		boolean vFlag = true;
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap = getSubCategoryLinks();
+		for (Map.Entry m : hMap.entrySet()) {
+			System.out.println(m.getKey() + "--" + m.getValue());
+			driver.get(m.getValue().toString());
+			vFlag = vFlag && checkPageContainsError(m.getKey().toString());
+		}
+		System.out.println("Size of links:" + hMap.size());
+		Assert.assertEquals(10, hMap.size());
+//		Assert.assertTrue(vFlag);
+	}
+
+	public void verifySubCategoryForHome() {
+		boolean vFlag = true;
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap = getSubCategoryLinks();
+		for (Map.Entry m : hMap.entrySet()) {
+			System.out.println(m.getKey() + "--" + m.getValue());
+			driver.get(m.getValue().toString());
+			vFlag = vFlag && checkPageContainsError(m.getKey().toString());
+		}
+		System.out.println("Size of links:" + hMap.size());
+		Assert.assertEquals(8, hMap.size());
+//		Assert.assertTrue(vFlag);
+	}
+
+	public void verifySubCategoryForGuideToEB() {
+		boolean vFlag = true;
+		HashMap<String, String> hMap = new HashMap<String, String>();
+		hMap = getSubCategoryLinks();
+		for (Map.Entry m : hMap.entrySet()) {
+			System.out.println(m.getKey() + "--" + m.getValue());
+			driver.get(m.getValue().toString());
+			vFlag = vFlag && checkPageContainsError(m.getKey().toString());
+		}
+		System.out.println("Size of links:" + hMap.size());
+		Assert.assertEquals(17, hMap.size());
+//		Assert.assertTrue(vFlag);
+	}
 }
