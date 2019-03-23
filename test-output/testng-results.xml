@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="2" total="3" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="116480" started-at="2019-03-23T06:29:09Z" finished-at="2019-03-23T06:31:06Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="116480" started-at="2019-03-23T06:29:09Z" finished-at="2019-03-23T06:31:06Z">
+      <class name="tests.SmokeTest01">
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:tests.SmokeTest01@8dbdac1]" name="beforeMethod" is-config="true" duration-ms="25276" started-at="2019-03-23T06:29:09Z" finished-at="2019-03-23T06:29:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="verifyMenSubCategoryLinks()[pri:0, instance:tests.SmokeTest01@8dbdac1]" name="verifyMenSubCategoryLinks" duration-ms="90361" started-at="2019-03-23T06:29:34Z" finished-at="2019-03-23T06:31:05Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyMenSubCategoryLinks -->
+        <test-method status="PASS" signature="afterMethod(org.testng.ITestResult)[pri:0, instance:tests.SmokeTest01@8dbdac1]" name="afterMethod" is-config="true" duration-ms="753" started-at="2019-03-23T06:31:05Z" finished-at="2019-03-23T06:31:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=verifyMenSubCategoryLinks status=SUCCESS method=SmokeTest01.verifyMenSubCategoryLinks()[pri:0, instance:tests.SmokeTest01@8dbdac1] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- tests.SmokeTest01 -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
