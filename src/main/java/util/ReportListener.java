@@ -1,11 +1,15 @@
 package util;
 
+import java.io.File;
 import java.net.InetAddress;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.IReporter;
 import org.testng.IResultMap;
 import org.testng.ISuite;
@@ -17,12 +21,14 @@ import org.testng.xml.XmlSuite;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.MediaEntityModelProvider;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 import base.ScriptHelper;
+import base.WebDriverFactory;
 
 public class ReportListener extends ScriptHelper implements IReporter {
 
@@ -85,20 +91,35 @@ public class ReportListener extends ScriptHelper implements IReporter {
 				} else {
 					test.log(status, "Test " + status.toString().toLowerCase() + "ed");
 				}
-				if (result.getStatus() == ITestResult.FAILURE) {
-					test.fail(result.getTestClass().getName() + "." + result.getMethod().getMethodName(),
-							MediaEntityBuilder
-									.createScreenCaptureFromPath("./Results/Images/" + result.getTestClass().getName()
-											+ "." + result.getMethod().getMethodName() + ".png")
-									.build());
 
-					test.addScreenCaptureFromPath("./Results/Images/" + result.getTestClass().getName() + "."
+//				if (result.getStatus() == ITestResult.SUCCESS) {
+//					String sTimestamp=getTimestamp() ;
+//					test.pass("Step Passed: " + result.getTestClass().getName() + "." + result.getMethod().getMethodName(),
+//							MediaEntityBuilder.createScreenCaptureFromPath("./Images/" + sTimestamp+ ".png")
+//									.build());
+//					test.addScreenCaptureFromPath("./Images/" + sTimestamp+ ".png");
+//
+//				}
+				if (result.getStatus() == ITestResult.FAILURE) {
+					 
+					test.fail(
+							"Failure occured. Refer the screenshot below: " + result.getTestClass().getName() + "."
+									+ result.getMethod().getMethodName(),
+							MediaEntityBuilder.createScreenCaptureFromPath("./Images/" + result.getTestClass().getName()
+									+ "." + result.getMethod().getMethodName() + ".png").build());
+					test.addScreenCaptureFromPath("./Images/" + result.getTestClass().getName() + "."
 							+ result.getMethod().getMethodName() + ".png");
+					 
 				}
 				test.getModel().setStartTime(getTime(result.getStartMillis()));
 				test.getModel().setEndTime(getTime(result.getEndMillis()));
 			}
 		}
+	}
+
+	private String getTimestamp() {
+
+		return new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
 	}
 
 	private Date getTime(long millis) {

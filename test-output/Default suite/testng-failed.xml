@@ -6,8 +6,6 @@
       <class name="tests.SmokeTest01">
         <methods>
           <include name="afterMethod"/>
-          <include name="verifyMenListingPage"/>
-          <include name="verifyHeaderElements"/>
           <include name="verifyMenSubCategoryLinks"/>
           <include name="beforeMethod"/>
         </methods>

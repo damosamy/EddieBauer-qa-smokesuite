@@ -16,8 +16,7 @@ import org.testng.Assert;
 
 public class LandingPage extends PageInitializer {
 
-	private WebDriver driver;
-	private WebDriverWait wait;
+	 
 
 	@FindBy(css = ".logo")
 	WebElement linkEBLogo;
@@ -62,21 +61,22 @@ public class LandingPage extends PageInitializer {
 	}
 
 	public void verifySubCategoryForMen() {
-		getSubCategoryLinks();
+		 
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		hMap=getSubCategoryLinks();
-		for(Map.Entry m:hMap.entrySet()) {
-			System.out.println(m.getKey()+"--"+m.getValue());
+		hMap = getSubCategoryLinks();
+		for (Map.Entry m : hMap.entrySet()) {
+			System.out.println(m.getKey() + "--" + m.getValue());
 			driver.get(m.getValue().toString());
+			checkPageContainsError(m.getKey().toString());
 		}
 		System.out.println("sss");
 	}
 
 	private HashMap<String, String> getSubCategoryLinks() {
 		HashMap<String, String> hMap = new HashMap<String, String>();
-		int counter=1;
+		int counter = 1;
 		for (WebElement elem : linkProducts) {
-			hMap.put(counter+"_"+elem.getText(), elem.getAttribute("href"));
+			hMap.put(counter + "_" + elem.getText(), elem.getAttribute("href"));
 			counter++;
 		}
 		System.out.println(hMap);

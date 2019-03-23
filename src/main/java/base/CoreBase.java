@@ -1,11 +1,19 @@
 package base;
 
+import static org.testng.Assert.assertTrue;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -15,6 +23,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import com.aventstack.extentreports.Status;
 
 public class CoreBase extends WebDriverFactory {
 	public String getUrlTitle() throws Exception {
@@ -150,6 +161,7 @@ public class CoreBase extends WebDriverFactory {
 		}
 		return true;
 	}
+
 	public boolean checkPageError(String key, String currenturl) throws Exception {
 		// Check for Java Script Errors .
 		// waitForPageLoad(driver);
@@ -319,4 +331,50 @@ public class CoreBase extends WebDriverFactory {
 		return true;
 	}
 
+	/*
+	 * returns the page response code by 1. creating an httpConnection 2. connecting
+	 * to the connection 3. getting the response code for the connection
+	 */
+	private int getPageResponseCode(String url) throws IOException {
+		int responseCode = 0;
+		try {
+			HttpURLConnection httpConnection = createHttpConnection(url);
+			httpConnection.connect();
+			responseCode = httpConnection.getResponseCode();
+		} catch (ProtocolException | SSLException exception) {
+			System.out.println("could not open " + url);
+		}
+		return responseCode;
+	}
+
+	// create the httpConnection object
+	private HttpURLConnection createHttpConnection(String href) throws IOException {
+		URL url = new URL(href);
+		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+		huc.setRequestMethod("GET");
+		return huc;
+	}
+
+	public void checkPageContainsError(String sectionName) {
+		StringBuilder pageSrc = new StringBuilder(driver.findElement(By.tagName("body")).getText());
+
+		List<String> errMsgs = new ArrayList<>();
+		errMsgs.add("no matches found for \\“global default rule\\”");
+		errMsgs.add("unknown error");
+		errMsgs.add("network error");
+
+		boolean flag = true;
+ 
+		for (String err : errMsgs) {
+			if (!pageSrc.toString().contains(err)) {
+				System.out.println("Error Msg:<B>" + err + "<B> is present for \" + sectionName + \", URL:\"\r\n"
+						+ "						+ driver.getCurrentUrl()");
+				flag = false;
+			} else {
+				System.out.println("Error Msg:<B>" + err + "<B> is not present for " + sectionName + ", URL:"
+						+ driver.getCurrentUrl() + " as expected");
+			}
+		}
+		Assert.assertTrue(flag);
+	}
 }

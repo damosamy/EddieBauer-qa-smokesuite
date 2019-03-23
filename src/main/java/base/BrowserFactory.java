@@ -19,7 +19,7 @@ import util.LoadConfigFile;
 
 @Listeners({ util.ReportListener.class })
 public class BrowserFactory extends ScriptHelper {
-	static WebDriver driver;
+	protected static WebDriver driver;
 
 	public BrowserFactory() {
 		LoadConfigFile.getInstance();

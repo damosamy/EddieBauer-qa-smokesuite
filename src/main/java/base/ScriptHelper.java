@@ -49,8 +49,8 @@ public class ScriptHelper {
 
 	public static final String OUTPUT_FOLDER = "./Results/";
 
-	public ExtentReports extent;
-	public ISuite suite;
-	public ISuiteResult res;
-	public ExtentTest test;
+	public static ExtentReports extent;
+	public static ISuite suite;
+	public static ISuiteResult res;
+	public static ExtentTest test;
 }
